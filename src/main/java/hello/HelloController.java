@@ -30,4 +30,9 @@ public class HelloController {
     public long highestPhysBytes() {
     	return CNNModel.highestPhysBytes(); 
     }
+    
+    @RequestMapping("/phys_bytes_now")
+    public long physBytes() {
+    	return CNNModel.physBytesNow(); 
+    }
 }

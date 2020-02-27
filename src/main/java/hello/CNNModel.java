@@ -145,6 +145,10 @@ public class CNNModel {
     	return lastPhysBytes;
     }
     
+    public static long physBytesNow() {
+    	return Pointer.physicalBytes();
+    }
+    
     public static long highestPhysBytes() {
     	return highesPhysBytesReached;
     }
