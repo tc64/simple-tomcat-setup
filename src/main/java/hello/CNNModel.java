@@ -116,7 +116,14 @@ public class CNNModel {
     	INDArray input = dsFromString(txtToClassify);
     	CNNModel.net.output(input);
     	numServed += 1;
-    	lastPhysBytes = Pointer.physicalBytes();
+    	Long thisPhysBytes = Pointer.physicalBytes();
+    	
+    	if (thisPhysBytes < lastPhysBytes) {
+    		logger.info("physical bytes went down! " + lastPhysBytes + " to " + thisPhysBytes);
+    	}
+    	
+    	lastPhysBytes = thisPhysBytes;
+    	
     	if (lastPhysBytes > highesPhysBytesReached) {
     		highesPhysBytesReached = lastPhysBytes;
     		}
@@ -126,6 +133,7 @@ public class CNNModel {
     		logger.info("last phys bytes: " + Long.toString(lastPhysBytes));
     		logger.info("highes phys bytes: " + Long.toString(highesPhysBytesReached));
     	}
+    	
     	return null;
     }
     
@@ -141,5 +149,12 @@ public class CNNModel {
     	return highesPhysBytesReached;
     }
     
+    public static void main(String[] args) {
+    	Integer numIter = Integer.parseInt(args[0]);
+    	String test = "The movie was terrible, i would not recommend it to my worst enemy";
+    	for (int i = 0; i < numIter;i++) {
+    		String res = CNNModel.doInference(test);
+    	}
+    }
     
 }

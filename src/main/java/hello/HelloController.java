@@ -10,7 +10,7 @@ public class HelloController {
     
     @RequestMapping("/")
     public String index() {
-    	log.info("Inside hello controller...");
+    	//log.info("Inside hello controller...");
     	String test = "The movie was terrible, i would not recommend it to my worst enemy";
     	String res = CNNModel.doInference(test);
         return "inference done!";
