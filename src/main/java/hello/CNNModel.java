@@ -24,21 +24,25 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.indexing.INDArrayIndex;
 import org.nd4j.linalg.indexing.NDArrayIndex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
+import org.bytedeco.javacpp.Pointer;
 
 public class CNNModel {
 
-    /** Location to save and extract the training/testing data */
+    private static final Logger logger = LoggerFactory.getLogger(CNNModel.class);
     public static final String DATA_PATH = FilenameUtils.concat(System.getProperty("java.io.tmpdir"), "dl4j_w2vSentiment/");
-    /** Location (local file system) for the Google News vectors. Set this manually. */
     private static final String WORD_VECTORS_PATH = FilenameUtils.concat(System.getProperty("java.io.tmpdir"), "GoogleNews-vectors-negative300.bin.gz");
     private static final int truncateReviewsToLength = 256;
     private static final int vectorSize = 300;
+    private static int numServed = 0;
+    private static long highesPhysBytesReached = 0;
+    private static long lastPhysBytes = 0;
     private static WordVectors wordVectors;
     private static ComputationGraph net;
     private static File f = new File(FilenameUtils.concat(System.getProperty("java.io.tmpdir"), "sentiment_cnn.model"));
@@ -111,7 +115,28 @@ public class CNNModel {
     public static String doInference(String txtToClassify) {
     	INDArray input = dsFromString(txtToClassify);
     	CNNModel.net.output(input);
+    	numServed += 1;
+    	lastPhysBytes = Pointer.physicalBytes();
+    	System.out.println(lastPhysBytes);
+    	if (lastPhysBytes > highesPhysBytesReached) {highesPhysBytesReached = lastPhysBytes;}
+    	logger.info("physical bytes: " + Long.toString(highesPhysBytesReached));
+    	if (numServed % 1000 == 0) {
+    		logger.info("num served: " + Integer.toString(numServed));
+    		logger.info("highes phys bytes: " + Long.toString(highesPhysBytesReached));
+    	}
     	return null;
+    }
+    
+    public static int numServed() {
+    	return numServed;
+    }
+    
+    public static long lastPhysBytes() {
+    	return lastPhysBytes;
+    }
+    
+    public static long highestPhysBytes() {
+    	return highesPhysBytesReached;
     }
     
 }

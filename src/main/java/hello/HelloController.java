@@ -15,4 +15,19 @@ public class HelloController {
     	String res = CNNModel.doInference(test);
         return "inference done!";
     }
+    
+    @RequestMapping("/num_served")
+    public int numServed() {
+    	return CNNModel.numServed(); 
+    }
+    
+    @RequestMapping("/last_phys_bytes")
+    public long lastPhysBytes() {
+    	return CNNModel.lastPhysBytes(); 
+    }
+    
+    @RequestMapping("/highest_phys_bytes")
+    public long highestPhysBytes() {
+    	return CNNModel.highestPhysBytes(); 
+    }
 }
