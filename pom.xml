@@ -8,8 +8,6 @@
 	<version>0.1.0</version>
 	<packaging>war</packaging>
 
-
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -22,13 +20,66 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
+		<dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.deeplearning4j</groupId>
+      <artifactId>deeplearning4j-core</artifactId>
+      <version>1.0.0-beta6</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.deeplearning4j</groupId>
+      <artifactId>deeplearning4j-nlp</artifactId>
+      <version>1.0.0-beta6</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.nd4j</groupId>
+      <artifactId>nd4j-native-platform</artifactId>
+      <version>1.0.0-beta6</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>mkl-platform</artifactId>
+      <version>2019.1-1.4.4</version>
+    </dependency>
+    
+    
+	<dependency>
+	   <groupId>org.bytedeco</groupId>
+	   <artifactId>mkl-platform-redist</artifactId>
+	   <version>2019.5-1.5.2</version>
+	</dependency>
+
+    
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.3.5</version>
+    </dependency>
+    
+    <dependency>
+	<groupId>ch.qos.logback</groupId>
+	<artifactId>logback-classic</artifactId>
+	<version>1.0.13</version>
+	</dependency>
+		
 	</dependencies>
 
 	<properties>
 		<java.version>1.8</java.version>
-	</properties>
-
-
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+	
 	<build>
 		<finalName>hello</finalName>
 		<plugins>
