@@ -66,10 +66,16 @@
     </dependency>
     
     <dependency>
-	<groupId>ch.qos.logback</groupId>
-	<artifactId>logback-classic</artifactId>
-	<version>1.0.13</version>
-	</dependency>
+        <groupId>net.logstash.logback</groupId>
+        <artifactId>logstash-logback-encoder</artifactId>
+        <version>4.7</version>
+        <exclusions>
+            <exclusion>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
 		
 	</dependencies>
 
