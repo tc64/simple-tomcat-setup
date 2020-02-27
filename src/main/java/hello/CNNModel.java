@@ -120,10 +120,10 @@ public class CNNModel {
     	if (lastPhysBytes > highesPhysBytesReached) {
     		highesPhysBytesReached = lastPhysBytes;
     		}
-    	logger.info("physical bytes: " + Long.toString(highesPhysBytesReached));
+    	
     	if (numServed % 1000 == 0) {
     		logger.info("num served: " + Integer.toString(numServed));
-    		logger.info("highes phys bytes: " + Long.toString(lastPhysBytes));
+    		logger.info("last phys bytes: " + Long.toString(lastPhysBytes));
     		logger.info("highes phys bytes: " + Long.toString(highesPhysBytesReached));
     	}
     	return null;
@@ -140,5 +140,6 @@ public class CNNModel {
     public static long highestPhysBytes() {
     	return highesPhysBytesReached;
     }
+    
     
 }
