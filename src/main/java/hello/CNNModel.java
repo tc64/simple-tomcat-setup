@@ -30,8 +30,10 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import org.bytedeco.javacpp.Pointer;
+import org.bytedeco.javacpp.PointerScope;
 
 public class CNNModel {
 
@@ -47,6 +49,8 @@ public class CNNModel {
     private static long lastTotalBytes = 0;
     private static WordVectors wordVectors;
     private static ComputationGraph net;
+    private static INDArray[] out;
+    private static INDArray input;
     private static File f = new File(FilenameUtils.concat(System.getProperty("java.io.tmpdir"), "sentiment_cnn.model"));
     static {
     	System.out.println("static loading vectors");
@@ -114,10 +118,7 @@ public class CNNModel {
 		return wordVectors;
 	}
     
-    public static String doInference(String txtToClassify) {
-    	INDArray input = dsFromString(txtToClassify);
-    	CNNModel.net.output(input);
-    	numServed += 1;
+    public static void logBytesInfo() {
     	Long thisPhysBytes = Pointer.physicalBytes();
     	lastTotalBytes = Pointer.totalBytes();
     	if (thisPhysBytes < lastPhysBytes) {
@@ -134,13 +135,51 @@ public class CNNModel {
     		highestTotalBytesReached = lastTotalBytes;
     	}
     	
+    	logger.info("num served: " + Integer.toString(numServed));
+		logger.info("last phys bytes: " + Long.toString(lastPhysBytes));
+		logger.info("last total bytes: " + Long.toString(lastTotalBytes));
+		logger.info("highes phys bytes: " + Long.toString(highesPhysBytesReached));
+		logger.info("highes total bytes: " + Long.toString(highestTotalBytesReached));
+    	
+    }
+    
+    public static String doInference(String txtToClassify) {
     	if (numServed % 1000 == 0) {
-    		logger.info("num served: " + Integer.toString(numServed));
-    		logger.info("last phys bytes: " + Long.toString(lastPhysBytes));
-    		logger.info("last total bytes: " + Long.toString(lastTotalBytes));
-    		logger.info("highes phys bytes: " + Long.toString(highesPhysBytesReached));
-    		logger.info("highes total bytes: " + Long.toString(highestTotalBytesReached));
+    		logger.info("before getting input");
+        	logBytesInfo();
     	}
+    	input = dsFromString(txtToClassify);
+    	
+    	if (numServed % 1000 == 0) {
+	    	logger.info("after getting input");
+	    	logBytesInfo();
+    	}
+    	out = CNNModel.net.output(input);
+    	
+    	if (numServed % 1000 == 0) {
+	    	logger.info("after output");
+	    	logBytesInfo();
+    	}
+    	
+//    	Iterator<PointerScope> it = PointerScope.getScopeIterator();
+//        if (it != null) {
+//            while (it.hasNext()) {
+//                try {
+//                    it.next().deallocate();
+//                } catch (Exception e) {
+//                    // try the next scope down the stack
+//                    continue;
+//                }
+//                //break;
+//            }
+//        }
+        
+        if (numServed % 1000 == 0) {
+	        logger.info("after pointer scope dealloc");
+	    	logBytesInfo();
+        }
+    	
+    	numServed += 1;
     	
     	return null;
     }
