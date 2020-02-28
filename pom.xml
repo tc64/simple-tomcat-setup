@@ -41,10 +41,17 @@
     
     <dependency>
       <groupId>org.nd4j</groupId>
-      <artifactId>nd4j-native-platform</artifactId>
+      <artifactId>nd4j-native</artifactId>
       <version>1.0.0-beta6</version>
     </dependency>
-    
+
+    <dependency>
+      <groupId>org.nd4j</groupId>
+      <artifactId>nd4j-native</artifactId>
+      <version>1.0.0-beta6</version>
+      <classifier>linux-x86_64-avx2</classifier>
+    </dependency>
+
     <dependency>
       <groupId>org.bytedeco.javacpp-presets</groupId>
       <artifactId>mkl-platform</artifactId>
