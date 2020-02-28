@@ -155,7 +155,7 @@ public class CNNModel {
 	    	logBytesInfo();
     	}
     	out = CNNModel.net.output(input);
-    	Pointer.deallocateReferences();
+    	//Pointer.deallocateReferences();
     	if (numServed % 1000 == 0) {
 	    	logger.info("after output");
 	    	logBytesInfo();
