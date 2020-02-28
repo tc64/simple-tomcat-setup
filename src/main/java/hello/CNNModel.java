@@ -42,7 +42,9 @@ public class CNNModel {
     private static final int vectorSize = 300;
     private static int numServed = 0;
     private static long highesPhysBytesReached = 0;
+    private static long highestTotalBytesReached = 0;
     private static long lastPhysBytes = 0;
+    private static long lastTotalBytes = 0;
     private static WordVectors wordVectors;
     private static ComputationGraph net;
     private static File f = new File(FilenameUtils.concat(System.getProperty("java.io.tmpdir"), "sentiment_cnn.model"));
@@ -117,7 +119,7 @@ public class CNNModel {
     	CNNModel.net.output(input);
     	numServed += 1;
     	Long thisPhysBytes = Pointer.physicalBytes();
-    	
+    	lastTotalBytes = Pointer.totalBytes();
     	if (thisPhysBytes < lastPhysBytes) {
     		logger.info("physical bytes went down! " + lastPhysBytes + " to " + thisPhysBytes);
     	}
@@ -126,12 +128,18 @@ public class CNNModel {
     	
     	if (lastPhysBytes > highesPhysBytesReached) {
     		highesPhysBytesReached = lastPhysBytes;
-    		}
+    	}
+    	
+    	if (lastTotalBytes > highestTotalBytesReached) {
+    		highestTotalBytesReached = lastTotalBytes;
+    	}
     	
     	if (numServed % 1000 == 0) {
     		logger.info("num served: " + Integer.toString(numServed));
     		logger.info("last phys bytes: " + Long.toString(lastPhysBytes));
+    		logger.info("last total bytes: " + Long.toString(lastTotalBytes));
     		logger.info("highes phys bytes: " + Long.toString(highesPhysBytesReached));
+    		logger.info("highes total bytes: " + Long.toString(highestTotalBytesReached));
     	}
     	
     	return null;
@@ -145,8 +153,16 @@ public class CNNModel {
     	return lastPhysBytes;
     }
     
+    public static long lastTotalBytes() {
+    	return lastTotalBytes;
+    }
+    
     public static long physBytesNow() {
     	return Pointer.physicalBytes();
+    }
+    
+    public static long totalBytesNow() {
+    	return Pointer.totalBytes();
     }
     
     public static long highestPhysBytes() {
