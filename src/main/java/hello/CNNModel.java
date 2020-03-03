@@ -49,8 +49,8 @@ public class CNNModel {
     private static long lastTotalBytes = 0;
     private static WordVectors wordVectors;
     private static ComputationGraph net;
-    private static INDArray[] out;
-    private static INDArray input;
+    //private static INDArray[] out;
+    //private static INDArray input;
     private static File f = new File(FilenameUtils.concat(System.getProperty("java.io.tmpdir"), "sentiment_cnn.model"));
     static {
     	System.out.println("static loading vectors");
@@ -149,7 +149,8 @@ public class CNNModel {
     		logger.info("before getting input");
         	logBytesInfo();
     	}
-    	try (PointerScope scope = new PointerScope()) {
+    	try (@SuppressWarnings("unchecked")
+		PointerScope scope = new PointerScope()) {
     		input = dsFromString(txtToClassify);
     	
 	    	if (numServed % 1000 == 0) {
