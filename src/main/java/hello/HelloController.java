@@ -40,4 +40,16 @@ public class HelloController {
     public long totalBytes() {
     	return CNNModel.totalBytesNow(); 
     }
+    
+    @RequestMapping("/periodic_gc_on")
+    public String pdGcOn() {
+    	CNNModel.turnOnPeriodicGc();
+    	return ""; 
+    }
+    
+    @RequestMapping("/periodic_gc_off")
+    public String pdGcOff() {
+    	CNNModel.turnOffPeriodicGc();
+    	return "";
+    }
 }

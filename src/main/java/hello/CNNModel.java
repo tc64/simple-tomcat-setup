@@ -61,6 +61,7 @@ public class CNNModel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	turnOffPeriodicGc();
     }
     
     private static INDArray getVector(String word) {
@@ -148,14 +149,16 @@ public class CNNModel {
     		logger.info("before getting input");
         	logBytesInfo();
     	}
-    	input = dsFromString(txtToClassify);
+    	try (PointerScope scope = new PointerScope()) {
+    		input = dsFromString(txtToClassify);
     	
-    	if (numServed % 1000 == 0) {
-	    	logger.info("after getting input");
-	    	logBytesInfo();
+	    	if (numServed % 1000 == 0) {
+		    	logger.info("after getting input");
+		    	logBytesInfo();
+	    	}
+	    	out = CNNModel.net.output(input);
     	}
-    	out = CNNModel.net.output(input);
-    	//Pointer.deallocateReferences();
+    	
     	if (numServed % 1000 == 0) {
 	    	logger.info("after output");
 	    	logBytesInfo();
@@ -206,6 +209,14 @@ public class CNNModel {
     
     public static long highestPhysBytes() {
     	return highesPhysBytesReached;
+    }
+    
+    public static void turnOnPeriodicGc() {
+    	Nd4j.getMemoryManager().togglePeriodicGc(true);
+    }
+    
+    public static void turnOffPeriodicGc() {
+    	Nd4j.getMemoryManager().togglePeriodicGc(false);
     }
     
     public static void main(String[] args) {
