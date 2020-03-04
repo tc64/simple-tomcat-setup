@@ -15,74 +15,82 @@
 	</parent>
 
 	<dependencies>
+	
+	    <!-- <dependency>
+	      <groupId>org.bytedeco</groupId>
+	      <artifactId>javacpp</artifactId>
+	      <version>1.5.2</version>
+	      <systemPath>/home/tc/javacpp/target/javacpp.jar</systemPath>
+	    </dependency>-->
+	   
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+			
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>3.8.1</version>
+	      <scope>test</scope>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.deeplearning4j</groupId>
+	      <artifactId>deeplearning4j-core</artifactId>
+	      <version>1.0.0-beta6</version>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.deeplearning4j</groupId>
+	      <artifactId>deeplearning4j-nlp</artifactId>
+	      <version>1.0.0-beta6</version>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.nd4j</groupId>
+	      <artifactId>nd4j-native</artifactId>
+	      <version>1.0.0-beta6</version>
+	    </dependency>
+	
+	    <dependency>
+	      <groupId>org.nd4j</groupId>
+	      <artifactId>nd4j-native</artifactId>
+	      <version>1.0.0-beta6</version>
+	      <classifier>linux-x86_64-avx2</classifier>
+	    </dependency>
+	
+	    <dependency>
+	      <groupId>org.bytedeco.javacpp-presets</groupId>
+	      <artifactId>mkl-platform</artifactId>
+	      <version>2019.1-1.4.4</version>
+	    </dependency>
+	    
+	    
 		<dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.deeplearning4j</groupId>
-      <artifactId>deeplearning4j-core</artifactId>
-      <version>1.0.0-beta6</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.deeplearning4j</groupId>
-      <artifactId>deeplearning4j-nlp</artifactId>
-      <version>1.0.0-beta6</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.nd4j</groupId>
-      <artifactId>nd4j-native</artifactId>
-      <version>1.0.0-beta6</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.nd4j</groupId>
-      <artifactId>nd4j-native</artifactId>
-      <version>1.0.0-beta6</version>
-      <classifier>linux-x86_64-avx2</classifier>
-    </dependency>
-
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>mkl-platform</artifactId>
-      <version>2019.1-1.4.4</version>
-    </dependency>
-    
-    
-	<dependency>
-	   <groupId>org.bytedeco</groupId>
-	   <artifactId>mkl-platform-redist</artifactId>
-	   <version>2019.5-1.5.2</version>
-	</dependency>
-
-    
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.3.5</version>
-    </dependency>
-    
-    <dependency>
-        <groupId>net.logstash.logback</groupId>
-        <artifactId>logstash-logback-encoder</artifactId>
-        <version>4.7</version>
-        <exclusions>
-            <exclusion>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>
+		   <groupId>org.bytedeco</groupId>
+		   <artifactId>mkl-platform-redist</artifactId>
+		   <version>2019.5-1.5.2</version>
+		</dependency>
+	
+	    
+	    <dependency>
+	      <groupId>org.apache.httpcomponents</groupId>
+	      <artifactId>httpclient</artifactId>
+	      <version>4.3.5</version>
+	    </dependency>
+	    
+	    <dependency>
+	        <groupId>net.logstash.logback</groupId>
+	        <artifactId>logstash-logback-encoder</artifactId>
+	        <version>4.7</version>
+	        <exclusions>
+	            <exclusion>
+	                <groupId>ch.qos.logback</groupId>
+	                <artifactId>logback-core</artifactId>
+	            </exclusion>
+	        </exclusions>
+	    </dependency>
 		
 	</dependencies>
 

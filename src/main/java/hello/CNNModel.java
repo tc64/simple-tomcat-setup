@@ -151,6 +151,8 @@ public class CNNModel {
     	}
     	try (@SuppressWarnings("unchecked")
 		PointerScope scope = new PointerScope()) {
+    		INDArray[] out;
+    	    INDArray input;
     		input = dsFromString(txtToClassify);
     	
 	    	if (numServed % 1000 == 0) {
@@ -160,6 +162,9 @@ public class CNNModel {
 	    	out = CNNModel.net.output(input);
     	}
     	
+	    if (numServed % 10 == 0) Pointer.attemptClearMemory(false, true, 10, 3);
+	    if (numServed % 1000 == 0) Pointer.attemptClearMemory(true, true, 10, 1);
+	    	
     	if (numServed % 1000 == 0) {
 	    	logger.info("after output");
 	    	logBytesInfo();
@@ -218,6 +223,10 @@ public class CNNModel {
     
     public static void turnOffPeriodicGc() {
     	Nd4j.getMemoryManager().togglePeriodicGc(false);
+    }
+    
+    public static void cleanDefault() {
+    	Pointer.attemptClearMemory(true, true, 1, 1);
     }
     
     public static void main(String[] args) {

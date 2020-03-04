@@ -52,4 +52,10 @@ public class HelloController {
     	CNNModel.turnOffPeriodicGc();
     	return "";
     }
+    
+    @RequestMapping("/clean_default")
+    public String cleanDefault() {
+    	CNNModel.cleanDefault();
+    	return "";
+    }
 }
