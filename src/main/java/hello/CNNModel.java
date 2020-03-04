@@ -162,8 +162,9 @@ public class CNNModel {
 	    	out = CNNModel.net.output(input);
     	}
     	
-	    if (numServed % 10 == 0) Pointer.attemptClearMemory(false, true, 10, 3);
-	    if (numServed % 1000 == 0) Pointer.attemptClearMemory(true, true, 10, 1);
+	    //if (numServed % 10 == 0) 
+	    Pointer.attemptClearMemory(false, true, 1, 1);
+	    //if (numServed % 1000 == 0) Pointer.attemptClearMemory(true, true, 10, 1);
 	    	
     	if (numServed % 1000 == 0) {
 	    	logger.info("after output");
@@ -227,6 +228,10 @@ public class CNNModel {
     
     public static void cleanDefault() {
     	Pointer.attemptClearMemory(true, true, 1, 1);
+    }
+
+    public static void cleanTrimOnly() {
+    	Pointer.attemptClearMemory(false, true, 1, 1);
     }
     
     public static void main(String[] args) {

@@ -58,4 +58,10 @@ public class HelloController {
     	CNNModel.cleanDefault();
     	return "";
     }
+    
+    @RequestMapping("/clean_trim")
+    public String cleanTrimOnly() {
+    	CNNModel.cleanTrimOnly();
+    	return "";
+    }
 }
