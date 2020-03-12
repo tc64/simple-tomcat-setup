@@ -150,9 +150,6 @@ public class CNNModel {
     public static void logBytesInfo() {
     	Long thisPhysBytes = Pointer.physicalBytes();
     	lastTotalBytes = Pointer.totalBytes();
-    	if (thisPhysBytes < lastPhysBytes) {
-    		logger.info("physical bytes went down! " + lastPhysBytes + " to " + thisPhysBytes);
-    	}
     	
     	lastPhysBytes = thisPhysBytes;
     	
